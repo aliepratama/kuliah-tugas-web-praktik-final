@@ -6,13 +6,11 @@
     <title>Zimo Tools</title>
 </head>
 <body>
-    <h1>Bard Test</h1>
-    <form action="/ai" method="POST" enctype="multipart/form-data">
-        <textarea name="prompt" id="prompt" cols="30" rows="10"></textarea>
+    <h1>IMGBB Test</h1>
+    <form action="/imgbb" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" id="image">
         <button type="submit">submit</button>
     </form>
-    <h2>Inputted</h2>
-    <p>{{ inputted }}</p>
     <h2>Result</h2>
     <p>{{ result }}</p>
 
