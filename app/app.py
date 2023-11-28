@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, redirect
 from bardapi import Bard
 from dotenv import load_dotenv
-from PIL import Image
 from werkzeug.utils import secure_filename
-import requests, os, base64, io
+import requests, os, replicate
 
 
 load_dotenv()
@@ -51,6 +50,29 @@ def imgbb():
         os.remove(img)
         return render_template('imgbb.html', result=response_link.json())
     return render_template('imgbb.html', result='')
+
+@app.route('/consult', methods=["POST", "GET"])
+def consult():
+    if request.method == 'POST':
+        prompt = request.form['prompt']
+        file = request.files['image']
+        filename = secure_filename(file.filename)
+        img = os.path.join(app.config['UPLOAD'], filename)
+        file.save(img)
+        response_link = requests.post(url=f'https://api.imgbb.com/1/upload?expiration=15552000&key={os.environ["IMGBB_API_KEY"]}',
+                                      files=[
+                                    ('image',(filename, open(img,'rb'),file.mimetype))
+                                    ])
+        os.remove(img)
+        output = replicate.run(
+            "cjwbw/internlm-xcomposer:d16df299dbe3454023fcb47ed48dbff052e9b7cdf2837707adff3581edd11e95",
+            input={
+                "text": prompt,
+                "image": response_link.json()['data']['url']
+            }
+        )
+        return render_template('consult.html', inputted=prompt, result=output)
+    return render_template('consult.html',inputted='', result='')
     
 if __name__ == '__main__':
     app.run(debug=True)
