@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 from bardapi import Bard
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
-import requests, os, replicate
+import requests, os, replicate, urllib.parse
 
 
 load_dotenv()
@@ -73,6 +73,20 @@ def consult():
         )
         return render_template('consult.html', inputted=prompt, result=output)
     return render_template('consult.html',inputted='', result='')
+
+@app.route('/search', methods=["POST", "GET"])
+def search():
+    if request.method == 'POST':
+        search_key = request.form['search']
+        response = requests.get(url='https://www.googleapis.com/customsearch/v1',
+                                params={
+                                    'key': os.environ['GOOGLE_API_KEY'],
+                                    'cx': os.environ['GOOGLE_CX_KEY'],
+                                    'q': urllib.parse.quote(search_key),
+                                })
+        print('REQUEST>>>>>>>>>>', response.url)
+        return render_template('search.html', inputted=search_key, result=response.json())
+    return render_template('search.html',inputted='', result='')
     
 if __name__ == '__main__':
     app.run(debug=True)
