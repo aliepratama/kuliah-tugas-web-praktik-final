@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 from bardapi import Bard
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
+from supabase import create_client, Client
 import requests, os, replicate, urllib.parse, time, hmac, hashlib
 
 load_dotenv()
@@ -21,6 +22,10 @@ session_bard.headers = {
     "Origin": "https://bard.google.com",
     "Referer": "https://bard.google.com/",
 }
+
+url: str = os.environ['SUPABASE_URL']
+key: str = os.environ['SUPABASE_KEY']
+supabase: Client = create_client(url, key)
 
 @app.route('/')
 def index():
@@ -126,6 +131,11 @@ def pay():
     # params = request.args.get('v')
     return render_template('payment.html', hasil='')
 
+@app.route('/db_test')
+def db_test():
+    plan_result = supabase.table('plan').select('*').execute()
+    users_result = supabase.table('users').select('*').execute()
+    return render_template('db_test.html', plan=plan_result, user=users_result)
     
 if __name__ == '__main__':
     app.run(debug=True)
