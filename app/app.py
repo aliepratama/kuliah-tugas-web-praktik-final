@@ -2,8 +2,7 @@ from flask import Flask, render_template, request, redirect
 from bardapi import Bard
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
-import requests, os, replicate, urllib.parse
-
+import requests, os, replicate, urllib.parse, time, hmac, hashlib
 
 load_dotenv()
 # print('TOKEN>>>>>>>>>>>', os.environ['TOKEN_BARD_1PSID'])
@@ -87,6 +86,46 @@ def search():
         print('REQUEST>>>>>>>>>>', response.url)
         return render_template('search.html', inputted=search_key, result=response.json())
     return render_template('search.html',inputted='', result='')
+
+@app.route('/pay', methods=["POST", "GET"])
+def pay():
+    if request.method == 'POST':
+        try:
+            api_key     = os.environ['TRIPAY_KEY']
+            private_key = os.environ['TRIPAY_PRIVATE_KEY']
+
+            merchant_code = "T26785"
+            merchant_ref = ''
+            amount        = 1000
+
+            expiry = int(time.time() + (1*60*60)) # 1 jam
+
+            signStr = "{}{}{}".format(merchant_code, merchant_ref, amount)
+            signature = hmac.new(bytes(private_key,'latin-1'), bytes(signStr,'latin-1'), hashlib.sha256).hexdigest()
+
+            payload = {
+                'method': 'QRIS',
+                'merchant_ref': merchant_ref,
+                'amount': amount,
+                'customer_name': 'Nama Pelanggan',
+                'customer_email': 'emailpelanggan@domain.com',
+                'customer_phone': '081234567890',
+                'expired_time': expiry,
+                'signature': signature
+            }
+
+
+            headers = { "Authorization": "Bearer " + api_key }
+
+            result = requests.post(url="https://tripay.co.id/api/transaction/create", data=payload, headers=headers)
+            response_pay = result.text
+            print(response_pay)
+            return render_template('payment.html', hasil=response_pay)
+        except Exception as e:
+            print("Request Error: " + str(e))
+    # params = request.args.get('v')
+    return render_template('payment.html', hasil='')
+
     
 if __name__ == '__main__':
     app.run(debug=True)
