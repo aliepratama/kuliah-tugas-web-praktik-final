@@ -119,10 +119,23 @@ def pay():
                 'signature': signature
             }
 
+            order_items = [
+                {
+                    'name': 'Nama Produk 1',
+                    'price': 1000,
+                    'quantity': 1,
+                },
+            ]
+
+            i = 0
+            for item in order_items:
+                for k in item:
+                    payload['order_items['+ str(i) +']['+ str(k) +']'] = item[k]
+                i += 1
 
             headers = { "Authorization": "Bearer " + api_key }
 
-            result = requests.post(url="https://tripay.co.id/api/transaction/create", data=payload, headers=headers)
+            result = requests.post(url="https://tripay.co.id/api-sandbox/transaction/create", data=payload, headers=headers)
             response_pay = result.text
             print(response_pay)
             return render_template('payment.html', hasil=response_pay)
