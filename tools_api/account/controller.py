@@ -52,24 +52,26 @@ def login_account():
     email = request.form.get('email')
     password = request.form.get('password')
     if all([email, password]):
-        # try:
-        response = supabase.table('users').select('*').eq('email', email).execute()
-        print('RESPONSE>>>>>>>', response)
-        if len(response.data) > 0:
-            print('CHECK PWD>>>>>>>', check_password_hash(response.data[0]['password'], password))
-            if check_password_hash(response.data[0]['password'], password):
-                column = ['id', 'email', 'first_name', 'last_name']
-                data = {}
-                for i in column:
-                    data[i] = response.data[0][i]
-                expires = timedelta(days=1)
-                expires_refresh = timedelta(days=3)
-                data['access_token'] = jwt.create_access_token(data, fresh=True, expires_delta=expires)
-                data['refresh_token'] = jwt.create_refresh_token(data, expires_delta=expires_refresh)
-                return res.ok([data], SuccessMessage.SM2)
-            return res.bad_request(ErrorMessage.EM7)
-        # except:
-        #     pass
+        try:
+            response = supabase.table('users').select('*').eq('email', email).execute()
+            print('RESPONSE>>>>>>>', response)
+            if len(response.data) > 0:
+                print('CHECK PWD>>>>>>>', check_password_hash(response.data[0]['password'], password))
+                if check_password_hash(response.data[0]['password'], password):
+                    column = ['id', 'email', 'first_name', 'last_name']
+                    data = {}
+                    for i in column:
+                        data[i] = response.data[0][i]
+                    expires = timedelta(days=1)
+                    expires_refresh = timedelta(days=3)
+                    data['access_token'] = jwt.create_access_token(response.data[0]['id'],
+                                                                    fresh=True, expires_delta=expires)
+                    data['refresh_token'] = jwt.create_refresh_token(response.data[0]['id'],
+                                                                        expires_delta=expires_refresh)
+                    return res.ok([data], SuccessMessage.SM2)
+                return res.bad_request(ErrorMessage.EM7)
+        except:
+            pass
         return res.bad_request(ErrorMessage.EM6)
     response_msg = []
     if email is None:
