@@ -3,6 +3,7 @@ from tools_api.app_init import app
 from tools_api.helpers.res_message import ErrorMessage
 import tools_api.account.controller as ctrl
 import tools_api.helpers.response as res
+import flask_jwt_extended as jwt
 
 @app.route('/account', methods=['POST'])
 def account_general():
@@ -11,6 +12,7 @@ def account_general():
     return res.bad_request([ErrorMessage.EM1])
 
 @app.route('/account/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
+@jwt.jwt_required()
 def account_details(id):
     if request.method == 'GET':
         return ctrl.get_account_by_id(id)

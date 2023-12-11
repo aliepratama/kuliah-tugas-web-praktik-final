@@ -44,10 +44,21 @@ def add_account():
         response_msg.append(ErrorMessage.EM4)
     return res.bad_request(response_msg)
 
-def get_id_by_account():
-    pass
 def get_account_by_id(id):
-    pass
+    public_columns = ['email', 'first_name', 'last_name']
+    try:
+        response = supabase.table('users').select(', '.join(public_columns)).eq('id', id).execute()
+        print('RESPONSE>>>>>>', response.data[0])
+        if len(response.data) > 0:
+            data = {}
+            for i in public_columns:
+                data[i] = response.data[0][i]
+            data['id'] = id
+            return res.ok([data], SuccessMessage.SM3)
+    except:
+        pass
+    return res.bad_request(ErrorMessage.EM8)
+        
 def login_account():
     email = request.form.get('email')
     password = request.form.get('password')
