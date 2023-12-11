@@ -1,20 +1,21 @@
 from flask import request
+from datetime import timedelta
 from tools_api.helpers.db import supabase
 from tools_api.helpers.res_message import ErrorMessage, SuccessMessage
 from werkzeug.security import check_password_hash, generate_password_hash
 import tools_api.helpers.response as res
+import flask_jwt_extended as jwt
 
 def add_account():
     email = request.form.get('email')
     first_name = request.form.get('firstName')
     last_name = request.form.get('lastName')
     password = request.form.get('password')
-    required = [email, first_name, password]
-    if all(required):
+    if all([email, first_name, password]):
         try:
-            response = supabase.table('users').select('email').eq('email', email)
+            response = supabase.table('users').select('email').eq('email', email).execute()
             print('RESPONSE>>>>>>>', response)
-            if response.count > 0:
+            if len(response.data) > 0:
                 return res.bad_request(ErrorMessage.EM5)
         except:
             pass
@@ -48,7 +49,35 @@ def get_id_by_account():
 def get_account_by_id(id):
     pass
 def login_account():
-    pass
+    email = request.form.get('email')
+    password = request.form.get('password')
+    if all([email, password]):
+        # try:
+        response = supabase.table('users').select('*').eq('email', email).execute()
+        print('RESPONSE>>>>>>>', response)
+        if len(response.data) > 0:
+            print('CHECK PWD>>>>>>>', check_password_hash(response.data[0]['password'], password))
+            if check_password_hash(response.data[0]['password'], password):
+                column = ['id', 'email', 'first_name', 'last_name']
+                data = {}
+                for i in column:
+                    data[i] = response.data[0][i]
+                expires = timedelta(days=1)
+                expires_refresh = timedelta(days=3)
+                data['access_token'] = jwt.create_access_token(data, fresh=True, expires_delta=expires)
+                data['refresh_token'] = jwt.create_refresh_token(data, expires_delta=expires_refresh)
+                return res.ok([data], SuccessMessage.SM2)
+            return res.bad_request(ErrorMessage.EM7)
+        # except:
+        #     pass
+        return res.bad_request(ErrorMessage.EM6)
+    response_msg = []
+    if email is None:
+        response_msg.append(ErrorMessage.EM2)
+    if password is None:
+        response_msg.append(ErrorMessage.EM4)
+    return res.bad_request(response_msg)
+            
 def logout_account():
     pass
 def edit_account(id):
