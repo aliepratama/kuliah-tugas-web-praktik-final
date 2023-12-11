@@ -7,8 +7,10 @@ class ErrorMessage(object):
     EM6 = 'Email belum terdaftar!'
     EM7 = 'Password tidak sesuai!'
     EM8 = 'Akun tidak terdaftar!'
+    EM9 = 'Kredensial Salah!'
 
 class SuccessMessage(object):
     SM1 = 'Akun berhasil dibuat!'
     SM2 = 'Berhasil Login!'
     SM3 = 'Akun Terdaftar!'
+    SM4 = 'Akun berhasil dihapus!'

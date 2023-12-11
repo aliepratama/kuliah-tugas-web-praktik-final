@@ -91,9 +91,28 @@ def login_account():
         response_msg.append(ErrorMessage.EM4)
     return res.bad_request(response_msg)
             
-def logout_account():
-    pass
 def edit_account(id):
-    pass
+    email = request.form.get('email')
+    first_name = request.form.get('firstName')
+    last_name = request.form.get('lastName')
+    password = request.form.get('password')
+    columns = {'email': email, 'first_name': first_name,
+               'last_name': last_name, 'password': password}
+    for k, v in columns.items():
+        if v is not None:
+            try:
+                supabase.table('users').update({k:v}).eq('id', id).execute()
+            except:
+                return res.server_error()
+    return get_account_by_id(id)
+
 def delete_account(id):
-    pass
+    try:
+        response = supabase.table('users').delete().eq('id', id).execute()
+        print('RESPONSE>>>>>>', response)
+        if response:
+            return res.success(SuccessMessage.SM4)
+        return res.server_error()
+    except:
+        pass
+    return res.bad_request(ErrorMessage.EM8)

@@ -14,13 +14,17 @@ def account_general():
 @app.route('/account/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 @jwt.jwt_required()
 def account_details(id):
-    if request.method == 'GET':
-        return ctrl.get_account_by_id(id)
-    elif request.method == 'PATCH':
-        return ctrl.edit_account(id)
-    elif request.method == 'DELETE':
-        return ctrl.delete_account(id)
-    return res.bad_request([ErrorMessage.EM1])
+    current_user = jwt.get_jwt_identity()
+    print('CURRENT USER>>>>>', current_user)
+    if current_user == id:
+        if request.method == 'GET':
+            return ctrl.get_account_by_id(id)
+        elif request.method == 'PATCH':
+            return ctrl.edit_account(id)
+        elif request.method == 'DELETE':
+            return ctrl.delete_account(id)
+        return res.bad_request([ErrorMessage.EM1])
+    return res.bad_request([ErrorMessage.EM9])
 
 @app.route('/auth/login', methods=['POST'])
 def auth_login():
@@ -28,8 +32,3 @@ def auth_login():
         return ctrl.login_account()
     return res.bad_request([ErrorMessage.EM1])
 
-@app.route('/auth/logout', methods=['POST'])
-def auth_logout():
-    if request.method == 'POST':
-        return ctrl.logout_account()
-    return res.bad_request([ErrorMessage.EM1])
