@@ -6,6 +6,9 @@ import axios from 'axios';
 export const store = createStore({
     state(){
       return {
+        dataRegister: {
+          accepted: false
+        },
         dataLogin: {
           'id': window.localStorage.getItem('id'),
           'token': window.localStorage.getItem('token')
@@ -18,6 +21,23 @@ export const store = createStore({
       }
     },
     mutations: {
+      checkRegister(state, { firstName, lastName, email,
+        password, passwordConfirm, agreement }){
+         if(firstName && email && password && passwordConfirm && agreement){
+          if(password.length > 6 && password === passwordConfirm){
+            state.dataRegister = {
+              accepted: true,
+              message: 'Berhasil!',
+              data: { firstName: firstName, lastName: lastName,
+                email: email, password: password },
+            };
+          } else {
+            state.dataRegister.message = 'Password tidak valid!';
+          }
+         }else {
+           state.dataRegister.message = 'Mohon lengkapi data!';
+         }
+      },
       actionLogout(state){
         window.localStorage.removeItem('id');
         window.localStorage.removeItem('token');
@@ -26,7 +46,7 @@ export const store = createStore({
       },
     },
     actions: {
-        actionLogin({ state, commit }, { email, password }){
+        actionLogin({ state }, { email, password }){
           axios.postForm(`${defaultApi.toolsHost}/auth/login`, {
             email: email, password: password
           }).then((res) => {
@@ -47,5 +67,8 @@ export const store = createStore({
             alert(response)
           });
         },
+        actionRegister(context, { firstName, lastName, email, password }){
+          console.log('Pendaftaran')
+        }
     },
   })

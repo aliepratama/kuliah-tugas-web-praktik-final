@@ -1,11 +1,51 @@
 <script>
+import { mapActions, mapMutations, mapState } from 'vuex'
 export default {
     name: 'Register Form',
     data(){
         return {
-
+          ...mapState(['dataRegister']),
+          firstName: null,
+          lastName: null,
+          email: null,
+          password: null,
+          passwordConfirm: null,
+          agreement: false,
+          lastPath: null,
         }
-    }
+    },
+    methods: {
+      ...mapMutations(['checkRegister']),
+      ...mapActions(['actionRegister']),
+      register(){
+        this.$store.commit('checkRegister', {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          password: this.password,
+          passwordConfirm: this.passwordConfirm,
+          agreement: this.agreement,
+        })
+        if(this.$store.state.dataRegister.accepted){
+          this.$store.dispatch('actionRegister', {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+            password: this.password,
+          });
+        } else{
+          alert(this.$store.state.dataRegister.message);
+        }
+      },
+    },
+    created () {
+      this.lastPath = this.$router.options.history.state.back
+    },
+    computed: {
+      prevRoutePatch () {
+        return this.lastPath ? this.lastPath : '/'
+      }
+    },
 }
 </script>
 <template>
@@ -14,7 +54,7 @@ export default {
         <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img
             alt="Night"
-            src="https://images.unsplash.com/photo-1617195737496-bc30194e3a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+            src="https://images.unsplash.com/photo-1691144605799-cfaf2b18aa04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDIxfENEd3V3WEpBYkV3fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=870&q=80"
             class="absolute inset-0 h-full w-full object-cover opacity-80"
           />
     
@@ -79,11 +119,11 @@ export default {
             </div>
     
             <router-link 
-              to="/"
+              :to="prevRoutePatch"
               class="text-sm text-gray-500 underline">
               Back
             </router-link>
-            <form action="#" class="mt-8 grid grid-cols-6 gap-6">
+            <form action="" class="mt-8 grid grid-cols-6 gap-6" autocomplete="off">
               <div class="col-span-6 sm:col-span-3">
                 <label for="FirstName" class="block text-sm font-medium text-gray-700">
                   First Name
@@ -93,6 +133,7 @@ export default {
                   type="text"
                   id="FirstName"
                   name="first_name"
+                  v-model="firstName"
                   class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
               </div>
@@ -106,6 +147,7 @@ export default {
                   type="text"
                   id="LastName"
                   name="last_name"
+                  v-model="lastName"
                   class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
               </div>
@@ -117,6 +159,7 @@ export default {
                   type="email"
                   id="Email"
                   name="email"
+                  v-model="email"
                   class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
               </div>
@@ -128,6 +171,7 @@ export default {
                   type="password"
                   id="Password"
                   name="password"
+                  v-model="password"
                   class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
               </div>
@@ -141,6 +185,7 @@ export default {
                   type="password"
                   id="PasswordConfirmation"
                   name="password_confirmation"
+                  v-model="passwordConfirm"
                   class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
               </div>
@@ -151,6 +196,8 @@ export default {
                     type="checkbox"
                     id="MarketingAccept"
                     name="marketing_accept"
+                    v-model="agreement"
+                    :checked="agreement"
                     class="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm"
                   />
     
@@ -171,6 +218,7 @@ export default {
     
               <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
                 <button
+                  @click.prevent="register()"
                   class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                 >
                   Create an account
@@ -178,7 +226,7 @@ export default {
     
                 <p class="mt-4 text-sm text-gray-500 sm:mt-0">
                   Already have an account?
-                  <a href="#" class="text-gray-700 underline">Log in</a>.
+                  <router-link to="/login" class="text-gray-700 underline">Log in</router-link>.
                 </p>
               </div>
             </form>

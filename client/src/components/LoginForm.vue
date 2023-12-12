@@ -7,6 +7,7 @@ export default {
         return {
           email: null,
           password: null,
+          lastPath: null,
         }
     },
     methods: {
@@ -19,13 +20,22 @@ export default {
           alert('Mohon lengkapi data!')
         }
       }
+    },
+  created () {
+    this.lastPath = this.$router.options.history.state.back
+  },
+  computed: {
+    prevRoutePatch () {
+      // FIX THIS: CIRCULAR PAGE HISTORY
+      return this.lastPath != '/register' ? this.lastPath : '/'
     }
+  },
 }
 </script>
 <template>
     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div>
-        <router-link to="/" class="text-sm text-gray-500 underline">
+        <router-link :to="prevRoutePatch" class="text-sm text-gray-500 underline">
             Back
         </router-link>
       </div>
@@ -108,7 +118,7 @@ export default {
         <div class="flex items-center justify-between">
           <p class="text-sm text-gray-500">
             No account?
-            <a class="underline" href="">Sign up</a>
+            <router-link to="/register" class="underline">Sign up</router-link>
           </p>
     
           <button
