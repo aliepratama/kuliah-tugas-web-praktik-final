@@ -1,16 +1,23 @@
 <script>
-import { store } from '../store/store';
+import { mapActions } from 'vuex';
 
 export default {
     name: 'Login Form',
     data(){
         return {
-
+          email: null,
+          password: null,
         }
     },
     methods: {
-      forceLogin(){
-        store.dispatch('forceSuccessLogin')
+      ...mapActions(['actionLogin']),
+      login(){
+        if(this.email && this.password){
+          this.$store.dispatch('actionLogin',
+          {email: this.email, password: this.password})
+        } else {
+          alert('Mohon lengkapi data!')
+        }
       }
     }
 }
@@ -38,6 +45,7 @@ export default {
           <div class="relative">
             <input
               type="email"
+              v-model="email"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter email"
             />
@@ -67,6 +75,7 @@ export default {
           <div class="relative">
             <input
               type="password"
+              v-model="password"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter password"
             />
@@ -103,7 +112,7 @@ export default {
           </p>
     
           <button
-            @click.prevent="forceLogin()"
+            @click.prevent="login()"
             class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
           >
             Sign in

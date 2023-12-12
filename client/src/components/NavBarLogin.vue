@@ -1,5 +1,5 @@
 <script>
-import { store } from '../store/store'
+import { mapMutations } from 'vuex';
 
 export default {
     name: 'NavBar Login',
@@ -8,8 +8,9 @@ export default {
         }
     },
     methods: {
-      forceLogout(){
-        store.dispatch('forceSuccessLogout');
+      ...mapMutations(['actionLogout']),
+      logout(){
+        this.$store.commit('actionLogout');
       }
     }
 }
@@ -147,7 +148,7 @@ export default {
               />
             </svg>
           </button>
-          <button type="button" @click="forceLogout()">Logout</button>
+          <button type="button" @click="logout()">Logout</button>
         </div>
       </div>
   

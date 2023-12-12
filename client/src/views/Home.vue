@@ -1,12 +1,22 @@
-<script setup>
-import { ref } from 'vue';
+<script>
 import NavBar from '../components/NavBar.vue';
 import NavBarLogin from '../components/NavBarLogin.vue';
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
-import { store } from '../store/store';
+import { mapGetters } from 'vuex';
 
-const isLogin = ref(store.state.isLogin);
+export default {
+  name: 'Home Screen',
+  components: {
+    'NavBarLogin': NavBarLogin,
+    'NavBar': NavBar,
+    'Header': Header,
+    'Footer': Footer,
+  },
+  computed: {
+    ...mapGetters(['isLogin'])
+  }
+}
 </script>
 
 <template>
