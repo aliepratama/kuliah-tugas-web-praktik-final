@@ -10,8 +10,8 @@ export const store = createStore({
           accepted: false
         },
         dataLogin: {
-          'id': window.localStorage.getItem('id'),
-          'token': window.localStorage.getItem('token')
+          user: window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : null,
+          token: window.localStorage.getItem('token'),
         },
       }
     },
@@ -51,24 +51,41 @@ export const store = createStore({
             email: email, password: password
           }).then((res) => {
             if(res.status == 200){
-              console.log(res.data.data[0])
+              // console.log(res.data.data[0])
               let result = res.data.data[0];
-              window.localStorage.setItem('id', result.id);
+              window.localStorage.setItem('user', JSON.stringify({
+                id: result.id,
+                firstName: result.first_name,
+                email: result.email,
+              }));
               window.localStorage.setItem('token', result.access_token);
               state.dataLogin.id = result.id;
               state.dataLogin.token = result.access_token;
+              state.dataLogin.firstName = result.first_name;
               router.push('/');
             }else{
               alert('Gagal');
             }
           }).catch(async(error) => {
             let response = await error.response.data.errors;
-            console.log(response)
+            // console.log(response)
             alert(response)
           });
         },
         actionRegister(context, { firstName, lastName, email, password }){
-          console.log('Pendaftaran')
+          axios.postForm(`${defaultApi.toolsHost}/account`, {
+            email: email, password: password, firstName: firstName, lastName: lastName
+          }).then((res) => {
+            if(res.status == 200){
+              console.log(res.data.data[0]);
+              alert('Berhasil Mendaftar!');
+              router.push('/login');
+            }
+          }).catch(async(error) => {
+            let response = await error.response.data.errors;
+            // console.log(response)
+            alert(response)
+          });
         }
     },
   })

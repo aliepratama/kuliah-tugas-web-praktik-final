@@ -1,10 +1,11 @@
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
     name: 'NavBar Login',
     data(){
         return {
+          
         }
     },
     methods: {
@@ -12,6 +13,9 @@ export default {
       logout(){
         this.$store.commit('actionLogout');
       }
+    },
+    computed: {
+      ...mapState(['dataLogin']),
     }
 }
 </script>
@@ -130,9 +134,9 @@ export default {
             />
   
             <p class="ms-2 hidden text-left text-xs sm:block">
-              <strong class="block font-medium">Eric Frusciante</strong>
+              <strong class="block font-medium">{{ $store.state.dataLogin.user.firstName }}</strong>
   
-              <span class="text-gray-500"> eric@frusciante.com </span>
+              <span class="text-gray-500">{{ $store.state.dataLogin.user.email }}</span>
             </p>
   
             <svg
@@ -153,7 +157,7 @@ export default {
       </div>
   
       <div class="mt-8">
-        <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">Welcome Back, Barry!</h1>
+        <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">Welcome Back, {{ $store.state.dataLogin.user.firstName }}!</h1>
   
         <p class="mt-1.5 text-sm text-gray-500">
           Your website has seen a 52% increase in traffic in the last month. Keep it up! 🚀
