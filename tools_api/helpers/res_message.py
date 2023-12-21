@@ -9,6 +9,7 @@ class ErrorMessage(object):
     EM8 = 'Akun tidak terdaftar!'
     EM9 = 'Kredensial Salah!'
     EM10 = 'Anda tidak memiliki cukup token!'
+    EM11 = 'Data tidak lengkap!'
 
 class SuccessMessage(object):
     SM1 = 'Akun berhasil dibuat!'

@@ -17,7 +17,7 @@ export const store = createStore({
     },
     getters: {
       isLogin(state){
-        return state.dataLogin.id && state.dataLogin.token
+        return state.dataLogin.user && state.dataLogin.token
       }
     },
     mutations: {

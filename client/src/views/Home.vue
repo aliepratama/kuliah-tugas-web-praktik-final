@@ -21,7 +21,7 @@ export default {
 
 <template>
   <div>
-    <NavBarLogin v-if="isLogin"/>
+    <NavBarLogin v-if="$store.getters.isLogin"/>
     <NavBar v-else/>
     <Header></Header>
     <Footer></Footer>

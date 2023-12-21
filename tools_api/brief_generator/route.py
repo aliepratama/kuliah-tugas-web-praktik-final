@@ -18,3 +18,9 @@ def brief():
         elif get_data['type'] == 'website':
             return ctrl.get_brief_website(user_id)
     return res.bad_request([ErrorMessage.EM1])
+
+@app.route('/brief/init', methods=['POST'])
+def bard_init():
+    if request.method == 'POST':
+        return ctrl.initialize_bard()
+    return res.bad_request([ErrorMessage.EM1])

@@ -4,10 +4,12 @@ import tools_api.helpers.response as res
 
 class BardHelper():
     
-    def __init__(self) -> None:
-        self._1PSID = os.environ['TOKEN_BARD_1PSID']
-        self._1PSIDCC = os.environ['TOKEN_BARD_1PSIDCC']
-        self._1PSIDTS = os.environ['TOKEN_BARD_1PSIDTS']
+    def initial_token(self, id, cc, ts):
+        self._1PSID = id
+        self._1PSIDCC = cc
+        self._1PSIDTS = ts
+        
+    def initial_session(self) -> None:
         self.session = requests.Session()
         self.session.cookies.set('__Secure-1PSID', self._1PSID)
         self.session.cookies.set('__Secure-1PSIDCC', self._1PSIDCC)
@@ -35,6 +37,7 @@ class BardHelper():
             return res
         
     def ask_logo_brief(self) -> str:
+        self.initial_session()
         try:
             prompt = """
                 Anda adalah seorang pemberi ide handal dalam branding.
@@ -57,6 +60,7 @@ class BardHelper():
             return res.server_error()
     
     def ask_website_brief(self) -> str:
+        self.initial_session()
         try:
             prompt = """
                 Anda adalah seorang pemberi ide handal dalam web desain.
