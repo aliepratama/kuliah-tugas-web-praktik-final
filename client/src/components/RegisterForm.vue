@@ -75,12 +75,11 @@ export default {
             </a>
     
             <h2 class="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-              Welcome to Squid 🦑
+              Bergabung dengan Zimo
             </h2>
     
             <p class="mt-4 leading-relaxed text-white/90">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
-              quibusdam aperiam voluptatum.
+              Daftar untuk mendapatkan 5 token gratis dan menggunakan layanan eksklusif dari zimo tools
             </p>
           </div>
         </section>
@@ -91,7 +90,7 @@ export default {
           <div class="max-w-xl lg:max-w-3xl">
             <div class="relative -mt-16 block lg:hidden">
               <a
-                class="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-600 sm:h-20 sm:w-20"
+                class="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-teal-600 sm:h-20 sm:w-20"
                 href="/"
               >
                 <span class="sr-only">Home</span>
@@ -109,12 +108,11 @@ export default {
               </a>
     
               <h1 class="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                Welcome to Squid 🦑
+                Bergabung dengan Zimo
               </h1>
     
               <p class="mt-4 leading-relaxed text-gray-500">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
-                quibusdam aperiam voluptatum.
+                Daftar untuk mendapatkan 5 token gratis dan menggunakan layanan eksklusif dari zimo tools
               </p>
             </div>
     
@@ -126,7 +124,7 @@ export default {
             <form action="" class="mt-8 grid grid-cols-6 gap-6" autocomplete="off">
               <div class="col-span-6 sm:col-span-3">
                 <label for="FirstName" class="block text-sm font-medium text-gray-700">
-                  First Name
+                  Nama depan
                 </label>
     
                 <input
@@ -140,7 +138,7 @@ export default {
     
               <div class="col-span-6 sm:col-span-3">
                 <label for="LastName" class="block text-sm font-medium text-gray-700">
-                  Last Name
+                  Nama belakang
                 </label>
     
                 <input
@@ -165,7 +163,7 @@ export default {
               </div>
     
               <div class="col-span-6 sm:col-span-3">
-                <label for="Password" class="block text-sm font-medium text-gray-700"> Password </label>
+                <label for="Password" class="block text-sm font-medium text-gray-700"> Kata sandi </label>
     
                 <input
                   type="password"
@@ -178,7 +176,7 @@ export default {
     
               <div class="col-span-6 sm:col-span-3">
                 <label for="PasswordConfirmation" class="block text-sm font-medium text-gray-700">
-                  Password Confirmation
+                  Ulangi kata sandi
                 </label>
     
                 <input
@@ -202,31 +200,22 @@ export default {
                   />
     
                   <span class="text-sm text-gray-700">
-                    I want to receive emails about events, product updates and company announcements.
+                    Saya setuju dengan syarat & ketentuan yang berlaku
                   </span>
                 </label>
-              </div>
-    
-              <div class="col-span-6">
-                <p class="text-sm text-gray-500">
-                  By creating an account, you agree to our
-                  <a href="#" class="text-gray-700 underline"> terms and conditions </a>
-                  and
-                  <a href="#" class="text-gray-700 underline">privacy policy</a>.
-                </p>
               </div>
     
               <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
                 <button
                   @click.prevent="register()"
-                  class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+                  class="inline-block shrink-0 rounded-md border border-teal-600 bg-teal-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-teal-600 focus:outline-none focus:ring active:text-teal-500"
                 >
-                  Create an account
+                  Buat akun
                 </button>
     
                 <p class="mt-4 text-sm text-gray-500 sm:mt-0">
-                  Already have an account?
-                  <router-link to="/login" class="text-gray-700 underline">Log in</router-link>.
+                  Sudah memiliki akun?
+                  <router-link to="/login" class="text-gray-700 underline">Masuk</router-link>.
                 </p>
               </div>
             </form>

@@ -36,15 +36,14 @@ export default {
     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div>
         <router-link :to="prevRoutePatch" class="text-sm text-gray-500 underline">
-            Back
+            Kembali
         </router-link>
       </div>
       <div class="mx-auto max-w-lg text-center">
-        <h1 class="text-2xl font-bold sm:text-3xl">Get started today!</h1>
+        <h1 class="text-2xl font-bold sm:text-3xl">Mulai berkreasi sekarang!</h1>
     
         <p class="mt-4 text-gray-500">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero nulla eaque error neque
-          ipsa culpa autem, at itaque nostrum!
+          Silahkan masuk dengan email dan kata sandi anda
         </p>
       </div>
     
@@ -57,7 +56,7 @@ export default {
               type="email"
               v-model="email"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter email"
+              placeholder="Masukkan email"
             />
     
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
@@ -87,7 +86,7 @@ export default {
               type="password"
               v-model="password"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter password"
+              placeholder="Masukkan kata sandi"
             />
     
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
@@ -117,15 +116,15 @@ export default {
     
         <div class="flex items-center justify-between">
           <p class="text-sm text-gray-500">
-            No account?
-            <router-link to="/register" class="underline">Sign up</router-link>
+            Tidak memiliki akun?
+            <router-link to="/register" class="underline">Daftar</router-link>
           </p>
     
           <button
             @click.prevent="login()"
-            class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+            class="inline-block rounded-lg bg-teal-600 px-5 py-3 text-sm font-medium text-white"
           >
-            Sign in
+            Masuk
           </button>
         </div>
       </form>
