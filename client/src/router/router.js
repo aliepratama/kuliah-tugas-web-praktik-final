@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import BriefGenerator from '../views/BriefGenerator.vue'
+import DesignRater from '../views/DesignRater.vue'
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -22,6 +23,10 @@ export const router = createRouter({
         {
             path: '/brief',
             component: BriefGenerator,
+        },
+        {
+            path: '/rater',
+            component: DesignRater,
         },
     ]
 });
