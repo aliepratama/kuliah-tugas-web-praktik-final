@@ -13,6 +13,7 @@ export const store = createStore({
           user: window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : null,
           token: window.localStorage.getItem('token'),
         },
+        resultBrief: null,
       }
     },
     getters: {
@@ -86,6 +87,32 @@ export const store = createStore({
             // console.log(response)
             alert(response)
           });
-        }
+        },
+        actionBrief({ state }, { type }){
+          console.log({
+            type: type,
+            bearer: state.dataLogin.token
+          })
+          axios.post(`${defaultApi.toolsHost}/brief`, {
+            type: type
+          },{
+            timeout: 30000,
+            headers: { 
+              'Authorization': `Bearer ${state.dataLogin.token}`,
+              'Content-Type': 'application/json',
+            }
+          }).then((res) => {
+            if(res.status == 200){
+              console.log(res.data.data[0])
+              state.resultBrief = Object.entries(res.data.data[0])
+            }else{
+              alert('Gagal');
+            }
+          }).catch(async(error) => {
+            let response = await error.response.data.errors;
+            // console.log(response)
+            alert(response)
+          });
+        },
     },
   })

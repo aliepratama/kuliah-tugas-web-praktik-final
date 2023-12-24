@@ -6,11 +6,11 @@ import tools_api.helpers.response as res
 import flask_jwt_extended as jwt
 
 
-@app.route('/brief', methods=['GET'])
+@app.route('/brief', methods=['POST'])
 @jwt.jwt_required()
 def brief():
     user_id = jwt.get_jwt_identity()
-    if request.method == 'GET':
+    if request.method == 'POST':
         get_data = request.get_json()
         print('GET DATA>>>>>>>>>>', get_data)
         if get_data['type'] == 'logo':
