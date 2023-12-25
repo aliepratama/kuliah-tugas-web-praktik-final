@@ -3,7 +3,7 @@ import { mapActions, mapState } from 'vuex';
 import NavBarLogin from '../components/NavBarLogin.vue';
 
 export default {
-  name: "Brief Generator Page",
+  name: "Brief Generator View",
   components:{
     'NavBarLogin': NavBarLogin,
   },

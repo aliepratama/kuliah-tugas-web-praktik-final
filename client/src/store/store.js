@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import { router } from '../router/router'
 import { defaultApi } from './config';
 import axios from 'axios';
+import { HistoryDatabaseService } from '../services/HistoryDataService';
 
 export const store = createStore({
     state(){
@@ -16,12 +17,13 @@ export const store = createStore({
         resultBrief: null,
         urlUploadedImage: null,
         resultRater: null,
+        historyDataList: null,
       }
     },
     getters: {
       isLogin(state){
-        return state.dataLogin.user && state.dataLogin.token
-      }
+        return state.dataLogin.user && state.dataLogin.token;
+      },
     },
     mutations: {
       checkRegister(state, { firstName, lastName, email,
@@ -146,6 +148,9 @@ export const store = createStore({
             // console.log(response)
             alert(response)
           });
+        },
+        async fetchAllHistory({ state }){
+          state.historyDataList = await HistoryDatabaseService.getAllData()
         },
     },
   })

@@ -56,7 +56,17 @@ export default {
                 </li>
     
                 <li>
-                  <a class="text-gray-500 transition hover:text-gray-500/75" href="/"> Pembayaran </a>
+                  <router-link 
+                  class="text-gray-500 transition hover:text-gray-500/75"
+                  :class="active == 'payment' ? 'font-bold' : ''"
+                  to="/payment"> Pembayaran </router-link>
+                </li>
+    
+                <li>
+                  <router-link 
+                  class="text-gray-500 transition hover:text-gray-500/75"
+                  :class="active == 'history' ? 'font-bold' : ''"
+                  to="/history"> Riwayat </router-link>
                 </li>
     
               </ul>

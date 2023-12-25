@@ -2,7 +2,7 @@
 import { mapActions, mapState } from 'vuex';
 import NavBarLogin from '../components/NavBarLogin.vue';
 export default {
-  name: "App",
+  name: "Design Rater View",
   components:{
     'NavBarLogin': NavBarLogin,
   },

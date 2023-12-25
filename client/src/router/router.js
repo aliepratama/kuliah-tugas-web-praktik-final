@@ -4,6 +4,8 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import BriefGenerator from '../views/BriefGenerator.vue'
 import DesignRater from '../views/DesignRater.vue'
+import Payment from '../views/Payment.vue'
+import History from '../views/History.vue'
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -27,6 +29,14 @@ export const router = createRouter({
         {
             path: '/rater',
             component: DesignRater,
+        },
+        {
+            path: '/payment',
+            component: Payment,
+        },
+        {
+            path: '/history',
+            component: History,
         },
     ]
 });
