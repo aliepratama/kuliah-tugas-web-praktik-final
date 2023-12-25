@@ -14,6 +14,8 @@ export const store = createStore({
           token: window.localStorage.getItem('token'),
         },
         resultBrief: null,
+        urlUploadedImage: null,
+        resultRater: null,
       }
     },
     getters: {
@@ -103,8 +105,39 @@ export const store = createStore({
             }
           }).then((res) => {
             if(res.status == 200){
-              console.log(res.data.data[0])
+              // console.log(res.data.data[0])
               state.resultBrief = Object.entries(res.data.data[0])
+            }else{
+              alert('Gagal');
+            }
+          }).catch(async(error) => {
+            let response = await error.response.data.errors;
+            // console.log(response)
+            alert(response)
+          });
+        },
+        actionImageUploader({ state }, { image }){
+          axios.postForm(`https://api.imgbb.com/1/upload?expiration=15552000&key=${defaultApi.imgbbKey}`,
+          {image: image}).then((res) => {
+            console.log(res.data)
+            state.urlUploadedImage = res.data.data.display_url;
+          }).catch(async(error) => {
+            let response = await error.response.data.errors;
+            alert(response)
+          });
+        },
+        actionRater({ state }, { image }){
+          axios.postForm(`${defaultApi.toolsHost}/rater`, {
+            img_url: image
+          },
+          {
+            timeout: 30000,
+            headers: { 
+              'Authorization': `Bearer ${state.dataLogin.token}`,
+          }}).then((res) => {
+            if(res.status == 200){
+              console.log(res.data.data)
+              state.resultRater = res.data.data
             }else{
               alert('Gagal');
             }

@@ -49,7 +49,10 @@ export default {
                 </li>
     
                 <li>
-                  <a class="text-gray-500 transition hover:text-gray-500/75" href="/"> Design Rater </a>
+                  <router-link 
+                  class="text-gray-500 transition hover:text-gray-500/75"
+                  :class="active == 'rater' ? 'font-bold' : ''"
+                  to="/rater"> Design Rater </router-link>
                 </li>
     
                 <li>

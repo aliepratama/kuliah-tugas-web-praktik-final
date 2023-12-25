@@ -4,6 +4,7 @@ from tools_api.helpers.jwt import jwt
 import tools_api.account
 import tools_api.brief_generator
 import tools_api.design_rater
+import tools_api.payment
 
 if __name__ == '__main__':
     app.run(debug=True)
