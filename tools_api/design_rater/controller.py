@@ -1,5 +1,6 @@
 from flask import request
-from tools_api.helpers.db import supabase
+from datetime import datetime
+from tools_api.helpers.db import supabase, frbs_ref_history
 from tools_api.helpers.res_message import SuccessMessage, ErrorMessage
 import tools_api.helpers.response as res
 import replicate
@@ -7,7 +8,7 @@ import replicate
 prompts = ["Simple", "Unique", "Effective", "Durable", "Representative"]
 
 def consult(user_id):
-    results = []
+    results = {}
     img_url = request.form.get('img_url')
     if img_url:
         response = supabase.table('users').select('token').eq('id', user_id).execute()
@@ -27,11 +28,19 @@ def consult(user_id):
                                         "question": f"is this {prompt} look logo?"
                                     }
                                 )
-                            results.append(str(output).lower().find('yes') > -1)
+                            results[prompt] = str(output).lower().find('yes') > -1
                         except:
                             return res.server_error()
                     supabase.table('users').update({'token': token - 1}).eq('id', user_id).execute()
-                    return res.ok(results, SuccessMessage.SM5)
+                    ref = frbs_ref_history(str(user_id))
+                    ref.push().set({
+                        'timestamp': int(datetime.utcnow().timestamp()),
+                        'image_link': img_url,
+                        'ver': 1.0,
+                        'result': results,
+                        'tools': 'rater'
+                    })
+                    return res.ok([results], SuccessMessage.SM5)
                 except Exception as e:
                     print(e)
                     return res.server_error()

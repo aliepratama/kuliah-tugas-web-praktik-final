@@ -1,11 +1,12 @@
 from flask import request
-from tools_api.helpers.db import supabase
+from datetime import datetime
+from tools_api.helpers.db import supabase, frbs_ref_history
 from tools_api.helpers.res_message import SuccessMessage, ErrorMessage
 from tools_api.helpers.bard import bardhelper
 import tools_api.helpers.response as res
 
 
-def check_before_service(func: any, user_id: int) -> any:
+def check_before_service(func: any, user_id: int, type: str) -> any:
     response = supabase.table('bard_token').select('s_1psid, s_1pscc, s_1psts')\
                 .order('created_at', desc=True).limit(1).single().execute()
     print('DATA>>>>>>>>>', response)
@@ -19,7 +20,17 @@ def check_before_service(func: any, user_id: int) -> any:
             if token > 0:
                 try:
                     bard_response = func()
+                    if isinstance(bard_response, str):
+                        return res.server_error()
                     supabase.table('users').update({'token': token - 1}).eq('id', user_id).execute()
+                    ref = frbs_ref_history(str(user_id))
+                    ref.push().set({
+                        'timestamp': int(datetime.utcnow().timestamp()),
+                        'type': type,
+                        'ver': 1.0,
+                        'result': bard_response,
+                        'tools': 'brief'
+                    })
                     return res.ok([bard_response], SuccessMessage.SM5)
                 except Exception as e:
                     print(e)
@@ -29,10 +40,10 @@ def check_before_service(func: any, user_id: int) -> any:
 
 
 def get_brief_logo(user_id: int) -> any:
-    return check_before_service(bardhelper.ask_logo_brief, user_id)
+    return check_before_service(bardhelper.ask_logo_brief, user_id, 'logo')
 
 def get_brief_website(user_id: int) -> any:
-    return check_before_service(bardhelper.ask_website_brief, user_id)
+    return check_before_service(bardhelper.ask_website_brief, user_id, 'website')
 
 def initialize_bard() -> None:
     s_1psid = request.json.get('id')
