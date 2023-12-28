@@ -5,9 +5,17 @@ export default {
     extend: {
       fontFamily: {
         'sans': ['Satoshi', 'system-ui'],
+      },
+      colors: {
+        'zimored': '#f32453',
+        'zimoyellow': '#fbb404',
+        'zimodark': '#fbb404',
       }
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('flowbite/plugin'),
+  ],
 }
 

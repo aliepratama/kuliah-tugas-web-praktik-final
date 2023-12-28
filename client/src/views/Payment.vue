@@ -1,27 +1,26 @@
 <script>
-import NavBarLogin from '../components/NavBarLogin.vue';
 import Pricing from '../components/Pricing.vue';
 import Checkout from '../components/Checkout.vue';
 import Payment from '../components/Payment.vue';
+import { mapMutations } from 'vuex';
 
 export default {
     name: "Payment View",
     components:{
-        'NavBarLogin': NavBarLogin,
         'Pricing': Pricing,
         'Checkout': Checkout,
         'Payment': Payment,
     },
-    data(){
-        return {
-
-        }
+    methods: {
+        ...mapMutations(['changeRoute']),
+    },
+    mounted(){
+        this.$store.commit('changeRoute', { route: 'payment' });
     }
 }
 </script>
 <template>
     <div>
-        <NavBarLogin active="payment"></NavBarLogin>
         <div class="flex flex-col items-center py-10">
             <strong class="text-3xl font-bold text-gray-900 sm:text-4xl">Pembelian Paket</strong>
             <transition name="fade">

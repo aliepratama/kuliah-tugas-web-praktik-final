@@ -1,11 +1,15 @@
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'Header',
     data(){
         return {
 
         }
-    }
+    },
+    computed: {
+      ...mapGetters(['isLogin'])
+    },
 }
 </script>
 <template>
@@ -14,7 +18,7 @@ export default {
         <div class="mx-auto max-w-xl text-center">
           <h1 class="text-3xl font-extrabold sm:text-5xl">
             Kuasai skill merancang
-            <strong class="font-extrabold text-teal-600 sm:block"> Naikkan jam terbang dengan AI! </strong>
+            <strong class="font-extrabold text-zimored sm:block"> Naikkan jam terbang dengan AI! </strong>
           </h1>
     
           <p class="mt-4 sm:text-xl/relaxed">
@@ -22,19 +26,19 @@ export default {
           </p>
     
           <div class="mt-8 flex flex-wrap justify-center gap-4">
-            <a
-              class="block w-full rounded bg-teal-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-teal-600 focus:outline-none focus:ring active:bg-teal-600 sm:w-auto"
-              href="/get-started"
+            <router-link
+              class="block w-full rounded bg-zimored px-12 py-3 text-sm font-medium text-white shadow hover:bg-zimored focus:outline-none focus:ring active:bg-zimored sm:w-auto"
+              :to="$store.getters.isLogin ? '/brief' : '/register'"
             >
-              Mulai sekarang
-            </a>
+              {{ $store.getters.isLogin ? 'Coba Brief Generator' : 'Daftar gratis' }}
+            </router-link>
     
-            <a
-              class="block w-full rounded px-12 py-3 text-sm font-medium text-teal-600 shadow hover:text-teal-600 focus:outline-none focus:ring active:text-teal-600 sm:w-auto"
-              href="/about"
+            <router-link
+              class="block w-full rounded px-12 py-3 text-sm font-medium text-zimored shadow hover:text-zimored focus:outline-none focus:ring active:text-zimored sm:w-auto"
+              :to="$store.getters.isLogin ? '/payment' : '#brief'"
             >
-              Lihat detail
-            </a>
+            {{ $store.getters.isLogin ? 'Lihat Harga' : 'Lihat Fitur' }}
+            </router-link>
           </div>
         </div>
       </div>

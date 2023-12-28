@@ -1,28 +1,26 @@
 <script>
-import { mapActions, mapState } from 'vuex';
-import NavBarLogin from '../components/NavBarLogin.vue';
+import { mapMutations } from 'vuex';
+import HistoryListCard from '../components/HistoryListCard.vue';
 
 export default {
     name: "History View",
     components:{
-        'NavBarLogin': NavBarLogin,
+        'ListCard': HistoryListCard,
     },
     data(){
         return {
-            ...mapState(['historyDataList']),
         }
     },
-    methods:{
-        ...mapActions(['fetchAllHistory']),
+    methods: {
+        ...mapMutations(['changeRoute']),
     },
     mounted(){
-        this.$store.dispatch('fetchAllHistory');
-    },
+        this.$store.commit('changeRoute', { route: 'history' });
+    }
 }
 </script>
 <template>
     <div>
-        <NavBarLogin active="history"></NavBarLogin>
-        <p>{{ $store.state.historyDataList }}</p>
+        <ListCard></ListCard>
     </div>
 </template>

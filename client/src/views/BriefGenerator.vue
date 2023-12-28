@@ -1,11 +1,9 @@
 <script>
-import { mapActions, mapState } from 'vuex';
-import NavBarLogin from '../components/NavBarLogin.vue';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
   name: "Brief Generator View",
   components:{
-    'NavBarLogin': NavBarLogin,
   },
   data(){
     return {
@@ -25,12 +23,15 @@ export default {
   },
   methods:{
     ...mapActions(['actionBrief']),
+    ...mapMutations(['changeRoute']),
+  },
+  mounted(){
+    this.$store.commit('changeRoute', { route: 'brief' });
   },
 };
 </script>
 <template>
     <div>
-        <NavBarLogin active="brief"></NavBarLogin>
         <div class="w-full flex justify-center">
           <div class="w-3/4 py-10 flex flex-col items-center gap-y-4">
             <div>
@@ -47,7 +48,7 @@ export default {
               </select>
             </div>
             <button
-              class="block w-full rounded bg-teal-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-teal-600 focus:outline-none focus:ring active:bg-teal-600 sm:w-auto"
+              class="block w-full rounded bg-zimored px-12 py-3 text-sm font-medium text-white shadow hover:bg-zimored focus:outline-none focus:ring active:bg-zimored sm:w-auto"
               @click="$store.dispatch('actionBrief', {type: selectModel})"
             >
               Generate!

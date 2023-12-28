@@ -122,7 +122,7 @@ export default {
     
           <button
             @click.prevent="login()"
-            class="inline-block rounded-lg bg-teal-600 px-5 py-3 text-sm font-medium text-white"
+            class="inline-block rounded-lg bg-zimored px-5 py-3 text-sm font-medium text-white"
           >
             Masuk
           </button>

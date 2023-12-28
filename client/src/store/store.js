@@ -18,6 +18,9 @@ export const store = createStore({
         urlUploadedImage: null,
         resultRater: null,
         historyDataList: null,
+        pricingState: 'pricing',
+        tokenRem: 0,
+        activeRoute: 'home',
       }
     },
     getters: {
@@ -49,6 +52,12 @@ export const store = createStore({
         state.dataLogin.id = null;
         state.dataLogin.token = null;
       },
+      changeRoute(state, { route }){
+        state.activeRoute = route;
+      },
+      // changeStepPayment(state){
+      //   if 
+      // },
     },
     actions: {
         actionLogin({ state }, { email, password }){
@@ -152,5 +161,24 @@ export const store = createStore({
         async fetchAllHistory({ state }){
           state.historyDataList = await HistoryDatabaseService.getAllData()
         },
+        actionGetToken({ state }){
+          axios.get(`${defaultApi.toolsHost}/account/${state.dataLogin.user.id}`,
+          {
+            timeout: 30000,
+            headers: { 
+              'Authorization': `Bearer ${state.dataLogin.token}`,
+          }}).then((res) => {
+            if(res.status == 200){
+              console.log(res.data.data)
+              state.tokenRem = res.data.data[0].token
+            }else{
+              alert('Gagal');
+            }
+          }).catch(async(error) => {
+            let response = await error.response.data.errors;
+            // console.log(response)
+            alert(response)
+          });
+        }
     },
   })

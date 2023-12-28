@@ -1,13 +1,12 @@
 <script>
-import { mapActions, mapState } from 'vuex';
-import NavBarLogin from '../components/NavBarLogin.vue';
+import { mapActions, mapMutations, mapState } from 'vuex';
 export default {
   name: "Design Rater View",
   components:{
-    'NavBarLogin': NavBarLogin,
   },
   methods : {
     ...mapActions(['actionImageUploader', 'actionRater']),
+    ...mapMutations(['changeRoute']),
     async uploadDroppedFiles($event) {
       const image = $event.dataTransfer.items[0].getAsFile();
       this.$store.dispatch('actionImageUploader', {image: image});
@@ -25,12 +24,14 @@ export default {
     return {
       ...mapState(['urlUploadedImage', 'resultRater']),
     };
+  },
+  mounted(){
+    this.$store.commit('changeRoute', { route: 'rater' });
   }
 };
 </script>
 <template>
     <div>
-      <NavBarLogin active="rater"></NavBarLogin>
       <div 
         class="flex items-center justify-center w-full"
         @dragover.prevent @drop.prevent="uploadDroppedFiles"
@@ -48,7 +49,7 @@ export default {
       </div> 
       <div v-else class="flex flex-col items-center w-full gap-y-4">
         <img :src="$store.state.urlUploadedImage" class="w-1/3 aspect-auto" alt="result_form">
-        <button @click="rateImage()" class="block w-full rounded bg-teal-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-teal-600 focus:outline-none focus:ring active:bg-teal-600 sm:w-auto">Kirim</button>
+        <button @click="rateImage()" class="block w-full rounded bg-zimored px-12 py-3 text-sm font-medium text-white shadow hover:bg-zimored focus:outline-none focus:ring active:bg-zimored sm:w-auto">Kirim</button>
         <p>{{ $store.state.resultRater }}</p>
       </div>
     </div>

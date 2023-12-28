@@ -45,7 +45,7 @@ def add_account():
     return res.bad_request(response_msg)
 
 def get_account_by_id(id):
-    public_columns = ['email', 'first_name', 'last_name']
+    public_columns = ['email', 'first_name', 'last_name', 'token']
     try:
         response = supabase.table('users').select(', '.join(public_columns)).eq('id', id).execute()
         print('RESPONSE>>>>>>', response.data[0])
