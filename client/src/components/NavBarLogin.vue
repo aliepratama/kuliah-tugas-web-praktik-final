@@ -106,8 +106,8 @@ export default {
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
                   <li>
                     <span class="block px-4 py-2">
-                      Halo {{ $store.state.dataLogin.user.firstName }} <br>
-                      Token tersisa: {{ $store.state.tokenRem }}
+                      Halo <span class="font-bold">{{ $store.state.dataLogin.user.firstName }}</span> <br>
+                      Token tersisa: <span class="text-zimored font-bold">{{ $store.state.tokenRem }}</span>
                     </span>
                   </li>
                   <li>

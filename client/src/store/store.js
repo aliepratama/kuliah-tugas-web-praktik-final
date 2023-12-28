@@ -130,7 +130,7 @@ export const store = createStore({
         actionImageUploader({ state }, { image }){
           axios.postForm(`https://api.imgbb.com/1/upload?expiration=15552000&key=${defaultApi.imgbbKey}`,
           {image: image}).then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
             state.urlUploadedImage = res.data.data.display_url;
           }).catch(async(error) => {
             let response = await error.response.data.errors;
@@ -147,7 +147,7 @@ export const store = createStore({
               'Authorization': `Bearer ${state.dataLogin.token}`,
           }}).then((res) => {
             if(res.status == 200){
-              console.log(res.data.data)
+              // console.log(res.data.data)
               state.resultRater = res.data.data
             }else{
               alert('Gagal');
@@ -169,7 +169,7 @@ export const store = createStore({
               'Authorization': `Bearer ${state.dataLogin.token}`,
           }}).then((res) => {
             if(res.status == 200){
-              console.log(res.data.data)
+              // console.log(res.data.data)
               state.tokenRem = res.data.data[0].token
             }else{
               alert('Gagal');

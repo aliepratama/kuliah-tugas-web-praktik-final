@@ -21,6 +21,9 @@ export default {
 </script>
 <template>
     <div>
-        <ListCard></ListCard>
+        <div class="w-full flex flex-col items-center p-10">
+            <strong class="text-3xl font-bold text-gray-900 sm:text-4xl">Riwayat Layanan</strong>
+            <ListCard></ListCard>
+        </div>
     </div>
 </template>
