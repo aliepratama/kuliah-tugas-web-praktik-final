@@ -117,7 +117,8 @@ export const store = createStore({
           }).then((res) => {
             if(res.status == 200){
               // console.log(res.data.data[0])
-              state.resultBrief = Object.entries(res.data.data[0])
+              state.resultBrief = Object.entries(res.data.data[0]);
+              dispatch('actionGetToken');
             }else{
               alert('Gagal');
             }
@@ -137,7 +138,7 @@ export const store = createStore({
             alert(response)
           });
         },
-        actionRater({ state }, { image }){
+        actionRater({ state, dispatch }, { image }){
           axios.postForm(`${defaultApi.toolsHost}/rater`, {
             img_url: image
           },
@@ -150,6 +151,7 @@ export const store = createStore({
               // console.log(res.data.data)
               const data = res.data.data
               state.resultRater = Object.entries(data[0]);
+              dispatch('actionGetToken');
             }else{
               alert('Gagal');
             }
@@ -160,7 +162,10 @@ export const store = createStore({
           });
         },
         async fetchAllHistory({ state }){
-          state.historyDataList = await HistoryDatabaseService.getAllData()
+          state.historyDataList = await HistoryDatabaseService.getAllData(state.dataLogin.user.id);
+        },
+        deleteHistory({ state }, { node }){
+          HistoryDatabaseService.removeData(state.dataLogin.user.id, node);
         },
         actionGetToken({ state }){
           axios.get(`${defaultApi.toolsHost}/account/${state.dataLogin.user.id}`,

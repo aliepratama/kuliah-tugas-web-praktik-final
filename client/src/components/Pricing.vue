@@ -27,7 +27,7 @@ export default {
             </p>
     
             <a
-              class="mt-4 block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500 sm:mt-6"
+              class="mt-4 block rounded border border-zimored bg-zimored px-12 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-zimored focus:outline-none focus:ring active:text-indigo-500 sm:mt-6"
               href="#"
             >
               Beli paket
@@ -45,7 +45,7 @@ export default {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-5 w-5 text-indigo-700"
+                  class="h-5 w-5 text-green-500"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
@@ -60,7 +60,7 @@ export default {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-5 w-5 text-indigo-700"
+                  class="h-5 w-5 text-green-500"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
@@ -132,7 +132,7 @@ export default {
             </p>
     
             <a
-              class="mt-4 block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500 sm:mt-6"
+              class="mt-4 block rounded border border-zimored bg-zimored px-12 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-zimored focus:outline-none focus:ring active:text-indigo-500 sm:mt-6"
               href="#"
             >
               Beli paket
@@ -150,7 +150,7 @@ export default {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-5 w-5 text-indigo-700"
+                  class="h-5 w-5 text-green-500"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
@@ -165,7 +165,7 @@ export default {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-5 w-5 text-indigo-700"
+                  class="h-5 w-5 text-green-500"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
@@ -180,7 +180,7 @@ export default {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-5 w-5 text-indigo-700"
+                  class="h-5 w-5 text-green-500"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
@@ -195,7 +195,7 @@ export default {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-5 w-5 text-indigo-700"
+                  class="h-5 w-5 text-green-500"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
@@ -237,7 +237,7 @@ export default {
             </p>
     
             <a
-              class="mt-4 block rounded border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500 sm:mt-6"
+              class="mt-4 block rounded border border-zimored bg-zimored px-12 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-zimored focus:outline-none focus:ring active:text-indigo-500 sm:mt-6"
               href="#"
             >
               Beli paket
@@ -255,7 +255,7 @@ export default {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-5 w-5 text-indigo-700"
+                  class="h-5 w-5 text-green-500"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
@@ -270,7 +270,7 @@ export default {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-5 w-5 text-indigo-700"
+                  class="h-5 w-5 text-green-500"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
@@ -285,7 +285,7 @@ export default {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-5 w-5 text-indigo-700"
+                  class="h-5 w-5 text-green-500"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
@@ -300,7 +300,7 @@ export default {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-5 w-5 text-indigo-700"
+                  class="h-5 w-5 text-green-500"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
@@ -315,7 +315,7 @@ export default {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="h-5 w-5 text-indigo-700"
+                  class="h-5 w-5 text-green-500"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
