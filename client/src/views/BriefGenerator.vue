@@ -42,10 +42,10 @@ export default {
     ...mapActions(['actionBrief']),
     ...mapMutations(['changeRoute']),
     lanjutStep(){
-      this.activeStep === 3 ? this.activeStep = 1 : this.activeStep++;
+      this.activeStep = this.activeStep === 3 ? 1 : this.activeStep + 1;
     },
     backStep(){
-      this.activeStep !== 1 ? this.activeStep-- : this.activeStep = 1;
+      this.activeStep = this.activeStep !== 1 ? this.activeStep - 1 : 1;
     },
   },
   mounted(){
@@ -106,16 +106,10 @@ export default {
               </div>
               <button
                 class="block w-full rounded bg-zimored px-12 py-3 text-sm font-medium text-white shadow hover:bg-zimored focus:outline-none focus:ring active:bg-zimored sm:w-auto"
-                @click="lanjutStep()"
-              >
-                Generate!
-              </button>
-              <!-- <button
-                class="block w-full rounded bg-zimored px-12 py-3 text-sm font-medium text-white shadow hover:bg-zimored focus:outline-none focus:ring active:bg-zimored sm:w-auto"
                 @click="$store.dispatch('actionBrief', {type: selectModel}); lanjutStep()"
               >
                 Generate!
-              </button> -->
+              </button>
             </div>
           </div>
           <div v-else class="w-full flex justify-center">

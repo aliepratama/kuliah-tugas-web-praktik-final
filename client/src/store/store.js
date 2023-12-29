@@ -148,7 +148,8 @@ export const store = createStore({
           }}).then((res) => {
             if(res.status == 200){
               // console.log(res.data.data)
-              state.resultRater = res.data.data
+              const data = res.data.data
+              state.resultRater = Object.entries(data[0]);
             }else{
               alert('Gagal');
             }

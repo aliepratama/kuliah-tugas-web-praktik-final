@@ -11,7 +11,7 @@ export default {
         historyList(){
             try{
                 const data = Object.entries(this.$store.state.historyDataList);
-                data.sort((a, b) => a[1].timestamp - b[1].timestamp);
+                data.sort((a, b) => b[1].timestamp - a[1].timestamp);
                 return data;
             } catch (e){
                 
@@ -41,7 +41,7 @@ export default {
 <template>
     <div class="w-full">
         <div class="w-full flex justify-center">
-            <ul class="w-full grid grid-cols-1 gap-y-4 gap-x-4 md:grid-cols-2 lg:gap-y-0 lg:grid-cols-3 px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+            <ul class="w-full grid grid-cols-1 gap-y-4 gap-x-4 md:grid-cols-2 lg:grid-cols-3 px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
                 <li v-for="[key, history] in historyList" :key="key">
                     <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <svg v-if="history.tools == 'brief'" class="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 576 512">

@@ -4,7 +4,7 @@ import { database } from "../firebase";
 const db = ref(database, '/history');
 
 class HistoryDatabaseService {
-    static async getAllData(limit=5, order='desc') {
+    static async getAllData(limit=20, order='desc') {
         if(limit >= 0){
             if(order === 'desc'){
                 const data = await get(query(child(db, '/10'), limitToLast(limit)));
