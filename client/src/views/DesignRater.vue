@@ -2,16 +2,18 @@
 import { mapActions, mapMutations, mapState } from 'vuex';
 import Stepper from '../components/Stepper.vue';
 import ResultRater from '../components/ResultRater.vue';
+import Spinner from '../components/Spinner.vue';
 
 export default {
   name: "Design Rater View",
   components:{
     'Stepper': Stepper,
     'ResultRater': ResultRater,
+    'Spinner': Spinner,
   },
   methods : {
     ...mapActions(['actionImageUploader', 'actionRater']),
-    ...mapMutations(['changeRoute']),
+    ...mapMutations(['changeRoute', 'resetStateHistory']),
     async uploadDroppedFiles($event) {
       const image = $event.dataTransfer.items[0].getAsFile();
       this.$store.dispatch('actionImageUploader', {image: image});
@@ -22,16 +24,17 @@ export default {
       this.$store.dispatch('actionImageUploader', {image: image});
       this.lanjutStep();
     },
-    rateImage(){
-      this.$store.dispatch('actionRater', {
-        image: this.$store.state.urlUploadedImage});
-        this.lanjutStep();
-    },
     lanjutStep(){
       this.activeStep = this.activeStep === 4 ? 1 : this.activeStep + 1;
+      if (this.activeStep === 1){
+        this.$store.commit('resetStateHistory')
+      }
     },
     backStep(){
       this.activeStep = this.activeStep !== 1 ? this.activeStep - 1 : 1;
+      if (this.activeStep === 1){
+        this.$store.commit('resetStateHistory')
+      }
     },
   },
   data() {
@@ -122,13 +125,22 @@ export default {
                   Konfirmasi desain
           </h5>
           <div class="flex flex-col items-center w-full gap-y-4">
-              <img :src="$store.state.urlUploadedImage" class="w-1/3 aspect-auto" alt="result_form">
-              <button @click="rateImage()" class="block w-full rounded bg-zimored px-12 py-3 text-sm font-medium text-white shadow hover:bg-zimored focus:outline-none focus:ring active:bg-zimored sm:w-auto">Kirim</button>
+              <img :src="$store.state.urlUploadedImage" class="w-full max-w-xs aspect-auto" alt="result_form">
+              <button @click="lanjutStep()" class="block w-full rounded bg-zimored px-12 py-3 text-sm font-medium text-white shadow hover:bg-zimored focus:outline-none focus:ring active:bg-zimored sm:w-auto">Kirim</button>
           </div>
         </div>
         <div v-else class="w-full flex justify-center">
           <div class="overflow-x-auto w-2/3 md:w-1/2 flex flex-col items-center gap-8 py-8">
-            <ResultRater></ResultRater>
+            <transition name="fade">
+              <suspense>
+                <template #default>
+                  <ResultRater></ResultRater>
+                </template>
+                <template #fallback>
+                  <Spinner></Spinner>
+                </template>
+              </suspense>
+            </transition>
             <button
               class="block w-full rounded bg-zimored px-12 py-3 text-sm font-medium text-white shadow hover:bg-zimored focus:outline-none focus:ring active:bg-zimored sm:w-auto"
               @click="lanjutStep()"

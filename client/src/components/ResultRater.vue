@@ -1,5 +1,5 @@
 <script>
-import { mapState } from 'vuex'
+import { mapState, useStore } from 'vuex'
 
 export default {
     name: 'Result Rater',
@@ -7,6 +7,15 @@ export default {
         return {
             ...mapState(['urlUploadedImage', 'resultRater']),
         }
+    },
+    async setup(){
+        const store = useStore()
+        if(store.state.detailHistory !== 'rater'){
+            const data = await store.dispatch('actionRater', {
+                    image: store.state.urlUploadedImage})
+            return {data: data}
+        }
+        return {}
     },
 }
 </script>

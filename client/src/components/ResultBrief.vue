@@ -1,11 +1,24 @@
 <script>
-import { mapState } from 'vuex'
+import { mapState, useStore } from 'vuex'
 export default {
     name: 'Result Brief',
+    props: {
+        type: String,
+    },
     data(){
         return {
             ...mapState(['resultBrief']),
         }
+    },
+    async setup(props){
+        const store = useStore();
+        const typeForm = props.type;
+        if(store.state.detailHistory !== 'brief'){
+            const data = await store.dispatch('actionBrief', {
+                    type: typeForm})
+            return {data: data}
+        }
+        return {}
     },
 }
 </script>

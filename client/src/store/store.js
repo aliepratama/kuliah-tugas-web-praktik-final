@@ -21,6 +21,7 @@ export const store = createStore({
         pricingState: 'pricing',
         tokenRem: 0,
         activeRoute: 'home',
+        detailHistory: null,
       }
     },
     getters: {
@@ -54,6 +55,12 @@ export const store = createStore({
       },
       changeRoute(state, { route }){
         state.activeRoute = route;
+      },
+      resetStateHistory(state){
+        state.detailHistory = null;
+        state.resultBrief = null;
+        state.urlUploadedImage = null;
+        state.resultRater = null;
       },
       // changeStepPayment(state){
       //   if 
@@ -101,8 +108,8 @@ export const store = createStore({
             alert(response)
           });
         },
-        actionBrief({ state, dispatch }, { type }){
-          axios.post(`${defaultApi.toolsHost}/brief`, {
+        async actionBrief({ state, dispatch }, { type }){
+          return await axios.post(`${defaultApi.toolsHost}/brief`, {
             type: type
           },{
             timeout: 30000,
@@ -115,6 +122,7 @@ export const store = createStore({
               // console.log(res.data.data[0])
               state.resultBrief = Object.entries(res.data.data[0]);
               dispatch('actionGetToken');
+              return true
             }else{
               alert('Gagal');
             }
@@ -134,8 +142,8 @@ export const store = createStore({
             alert(response)
           });
         },
-        actionRater({ state, dispatch }, { image }){
-          axios.postForm(`${defaultApi.toolsHost}/rater`, {
+        async actionRater({ state, dispatch }, { image }){
+          return await axios.postForm(`${defaultApi.toolsHost}/rater`, {
             img_url: image
           },
           {
@@ -148,6 +156,7 @@ export const store = createStore({
               const data = res.data.data
               state.resultRater = Object.entries(data[0]);
               dispatch('actionGetToken');
+              return true
             }else{
               alert('Gagal');
             }
@@ -181,6 +190,17 @@ export const store = createStore({
             // console.log(response)
             alert(response)
           });
-        }
+        },
+        async detailHistory({ state }, { node }){
+          const data = await HistoryDatabaseService.detailData(state.dataLogin.user.id, node);
+          console.log(data)
+          state.detailHistory = data.tools;
+          if (data.tools === 'rater'){
+            state.urlUploadedImage = data.image_link;
+            state.resultRater = Object.entries(data.result);
+          } else{
+            state.resultBrief = Object.entries(data.result);
+          }
+        },
     },
   })

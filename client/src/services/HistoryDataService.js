@@ -17,6 +17,10 @@ class HistoryDatabaseService {
     static async removeData(uid, node) {
         remove(ref(database, `/history/${uid}/${node}`));
     }
+    static async detailData(uid, node) {
+        const data = await get(query(child(db, `/${uid}/${node}`)));
+        return data.val();
+    }
 }
 
 export { HistoryDatabaseService };

@@ -1388,6 +1388,16 @@ input[type="range"]::-ms-fill-lower {
   flex-shrink: 0;
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -1654,6 +1664,10 @@ input[type="range"]::-ms-fill-lower {
   background-color: rgb(243 36 83 / var(--tw-bg-opacity));
 }
 
+.fill-zimored {
+  fill: #f32453;
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -1678,6 +1692,11 @@ input[type="range"]::-ms-fill-lower {
 .px-12 {
   padding-left: 3rem;
   padding-right: 3rem;
+}
+
+.px-16 {
+  padding-left: 4rem;
+  padding-right: 4rem;
 }
 
 .px-2 {
@@ -1862,6 +1881,11 @@ input[type="range"]::-ms-fill-lower {
 .text-gray-100 {
   --tw-text-opacity: 1;
   color: rgb(243 244 246 / var(--tw-text-opacity));
+}
+
+.text-gray-200 {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 
 .text-gray-400 {
@@ -2119,6 +2143,11 @@ input[type="range"]::-ms-fill-lower {
 :is(.dark .dark\:text-gray-400) {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
+:is(.dark .dark\:text-gray-600) {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
 :is(.dark .dark\:text-white) {

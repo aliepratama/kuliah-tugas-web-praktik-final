@@ -1,13 +1,15 @@
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex';
+import { mapMutations } from 'vuex';
 import ResultBrief from '../components/ResultBrief.vue';
 import Stepper from '../components/Stepper.vue';
+import Spinner from '../components/Spinner.vue';
 
 export default {
   name: "Brief Generator View",
   components:{
     'Stepper': Stepper,
     'ResultBrief': ResultBrief,
+    'Spinner': Spinner,
   },
   data(){
     return {
@@ -40,7 +42,6 @@ export default {
     }
   },
   methods:{
-    ...mapActions(['actionBrief']),
     ...mapMutations(['changeRoute']),
     lanjutStep(){
       this.activeStep = this.activeStep === 3 ? 1 : this.activeStep + 1;
@@ -107,7 +108,7 @@ export default {
               </div>
               <button
                 class="block w-full rounded bg-zimored px-12 py-3 text-sm font-medium text-white shadow hover:bg-zimored focus:outline-none focus:ring active:bg-zimored sm:w-auto"
-                @click="$store.dispatch('actionBrief', {type: selectModel}); lanjutStep()"
+                @click="lanjutStep()"
               >
                 Generate!
               </button>
@@ -115,7 +116,16 @@ export default {
           </div>
           <div v-else class="w-full flex justify-center">
             <div class="overflow-x-auto w-2/3 flex flex-col items-center gap-8 py-8">
-              <ResultBrief></ResultBrief>
+              <transition name="fade">
+                <suspense>
+                  <template #default>
+                    <ResultBrief :type="selectModel"></ResultBrief>
+                  </template>
+                  <template #fallback>
+                    <Spinner></Spinner>
+                  </template>
+                </suspense>
+              </transition>
               <button
                 class="block w-full rounded bg-zimored px-12 py-3 text-sm font-medium text-white shadow hover:bg-zimored focus:outline-none focus:ring active:bg-zimored sm:w-auto"
                 @click="lanjutStep()"
