@@ -1380,6 +1380,10 @@ input[type="range"]::-ms-fill-lower {
   max-width: 36rem;
 }
 
+.max-w-xs {
+  max-width: 20rem;
+}
+
 .shrink-0 {
   flex-shrink: 0;
 }
@@ -1414,6 +1418,10 @@ input[type="range"]::-ms-fill-lower {
 
 .place-content-center {
   place-content: center;
+}
+
+.items-start {
+  align-items: flex-start;
 }
 
 .items-end {
@@ -1677,6 +1685,11 @@ input[type="range"]::-ms-fill-lower {
   padding-right: 0.5rem;
 }
 
+.px-2\.5 {
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1690,6 +1703,16 @@ input[type="range"]::-ms-fill-lower {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
 }
 
 .py-10 {
@@ -1883,11 +1906,6 @@ input[type="range"]::-ms-fill-lower {
 
 .text-white\/90 {
   color: rgb(255 255 255 / 0.9);
-}
-
-.text-zimodark {
-  --tw-text-opacity: 1;
-  color: rgb(251 180 4 / var(--tw-text-opacity));
 }
 
 .text-zimored {
@@ -2262,6 +2280,10 @@ input[type="range"]::-ms-fill-lower {
 
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:flex-row {
+    flex-direction: row;
   }
 
   .md\:items-center {

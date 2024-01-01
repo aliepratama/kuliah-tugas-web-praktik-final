@@ -101,11 +101,7 @@ export const store = createStore({
             alert(response)
           });
         },
-        actionBrief({ state }, { type }){
-          console.log({
-            type: type,
-            bearer: state.dataLogin.token
-          })
+        actionBrief({ state, dispatch }, { type }){
           axios.post(`${defaultApi.toolsHost}/brief`, {
             type: type
           },{
@@ -123,9 +119,9 @@ export const store = createStore({
               alert('Gagal');
             }
           }).catch(async(error) => {
-            let response = await error.response.data.errors;
+            let response = await error;
             // console.log(response)
-            alert(response)
+            alert(response.response.data.errors)
           });
         },
         actionImageUploader({ state }, { image }){

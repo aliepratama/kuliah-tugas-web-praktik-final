@@ -1,10 +1,13 @@
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex';
 import Stepper from '../components/Stepper.vue';
+import ResultRater from '../components/ResultRater.vue';
+
 export default {
   name: "Design Rater View",
   components:{
     'Stepper': Stepper,
+    'ResultRater': ResultRater,
   },
   methods : {
     ...mapActions(['actionImageUploader', 'actionRater']),
@@ -33,7 +36,7 @@ export default {
   },
   data() {
     return {
-      ...mapState(['urlUploadedImage', 'resultRater']),
+      ...mapState(['urlUploadedImage']),
       dataStepper: [
         {
           id: 1,
@@ -125,46 +128,7 @@ export default {
         </div>
         <div v-else class="w-full flex justify-center">
           <div class="overflow-x-auto w-2/3 md:w-1/2 flex flex-col items-center gap-8 py-8">
-            <div class="flex flex-col items-center w-full gap-y-4">
-              <table class="divide-y-2 divide-gray-200 bg-white text-sm">
-                <thead class="ltr:text-left">
-                  <tr>
-                    <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Kriteria</th>
-                    <th class="px-4 py-2 font-medium text-gray-900">Hasil</th>
-                  </tr>
-                </thead>
-            
-                <tbody class="divide-y divide-gray-200">
-                  <tr v-for="result in $store.state.resultRater" :key="result[0]">
-                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-center">{{ result[0] }}</td>
-                    <td class="px-4 py-2 text-gray-700 text-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="h-5 w-5 text-green-500"
-                        v-if="result[1]"
-                      >
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                      </svg>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="h-5 w-5 text-zimored"
-                        v-else
-                      >
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                      </svg>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <ResultRater></ResultRater>
             <button
               class="block w-full rounded bg-zimored px-12 py-3 text-sm font-medium text-white shadow hover:bg-zimored focus:outline-none focus:ring active:bg-zimored sm:w-auto"
               @click="lanjutStep()"
