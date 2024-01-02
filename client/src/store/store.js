@@ -84,6 +84,7 @@ export const store = createStore({
         window.localStorage.removeItem('token');
         state.dataLogin.id = null;
         state.dataLogin.token = null;
+        router.push('/');
       },
       changeRoute(state, { route }){
         state.activeRoute = route;
@@ -131,7 +132,7 @@ export const store = createStore({
               state.dataLogin.id = result.id;
               state.dataLogin.token = result.access_token;
               state.dataLogin.firstName = result.first_name;
-              router.push('/');
+              router.push('/').then(() => {router.go()});
             }else{
               alert('Gagal');
             }
