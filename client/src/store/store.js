@@ -22,6 +22,38 @@ export const store = createStore({
         tokenRem: 0,
         activeRoute: 'home',
         detailHistory: null,
+        checkoutPage: 0,
+        activePlan: null,
+        imgQris: null,
+        pricelist:[
+          {
+            id: 1,
+            name: 'Bronze',
+            token: 5,
+            subtotal: 3500,
+            tax: 350,
+            discount: 350,
+            total: 3500,
+          },
+          {
+            id: 2,
+            name: 'Silver',
+            token: 10,
+            subtotal: 5000,
+            tax: 500,
+            discount: 500,
+            total: 5000,
+          },
+          {
+            id: 3,
+            name: 'Gold',
+            token: 15,
+            subtotal: 7000,
+            tax: 700,
+            discount: 700,
+            total: 7000,
+          },
+        ],
       }
     },
     getters: {
@@ -62,9 +94,25 @@ export const store = createStore({
         state.urlUploadedImage = null;
         state.resultRater = null;
       },
-      // changeStepPayment(state){
-      //   if 
-      // },
+      resetStatePayment(state){
+        state.activePlan = null;
+        state.imgQris = null;
+      },
+      lanjutStepPayment(state, plan=-1, isReset=false){
+        if(plan >= 0){
+          state.activePlan = plan;
+        }
+        if(isReset){
+          state.activePlan = null;
+        }
+        state.checkoutPage = state.checkoutPage === 2 ? 0 : state.checkoutPage + 1;
+      },
+      backStepPayment(state, isReset=false){
+        if(isReset){
+          state.activePlan = null;
+        }
+        state.checkoutPage = state.checkoutPage !== 0 ? state.checkoutPage - 1 : 0;
+      },
     },
     actions: {
         actionLogin({ state }, { email, password }){
@@ -201,6 +249,30 @@ export const store = createStore({
           } else{
             state.resultBrief = Object.entries(data.result);
           }
+        },
+        async actionPayment({ state, dispatch }, { planId }){
+          return await axios.postForm(`${defaultApi.toolsHost}/payment/create`, {
+            plan_id: planId
+          },
+          {
+            timeout: 30000,
+            headers: { 
+              'Authorization': `Bearer ${state.dataLogin.token}`,
+          }}).then((res) => {
+            console.log(res)
+            if(res.status == 200){
+              // console.log(res)
+              const data = res.data.data
+              state.imgQris = data[0].qr_url;
+              return true
+            }else{
+              alert('Gagal');
+            }
+          }).catch(async(error) => {
+            let response = await error;
+            // console.log(error)
+            alert(response.response.data.errors)
+          });
         },
     },
   })

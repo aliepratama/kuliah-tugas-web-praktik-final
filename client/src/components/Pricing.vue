@@ -1,10 +1,18 @@
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
     name: 'Pricing Section',
     data(){
         return {
           
         }
+    },
+    methods: {
+      ...mapMutations(['lanjutStepPayment']),
+      pilihPaket(plan){
+        this.$store.commit('lanjutStepPayment', plan)
+      }
     },
 }
 </script>
@@ -21,17 +29,17 @@ export default {
             <p class="mt-2 text-gray-700">Paket yang cocok untuk mencoba hal baru.</p>
     
             <p class="mt-2 sm:mt-4">
-              <strong class="text-3xl font-bold text-gray-900 sm:text-4xl"> Rp2.000 </strong>
+              <strong class="text-3xl font-bold text-gray-900 sm:text-4xl"> Rp3.500 </strong>
     
               <span class="text-sm font-medium text-gray-700">/paket</span>
             </p>
     
-            <a
-              class="mt-4 block rounded border border-zimored bg-zimored px-12 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-zimored focus:outline-none focus:ring active:text-indigo-500 sm:mt-6"
-              href="#"
+            <span
+              class="mt-4 block cursor-pointer rounded border border-zimored bg-zimored px-12 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-zimored focus:outline-none focus:ring active:text-zimored sm:mt-6"
+              @click="pilihPaket(0)"
             >
               Beli paket
-            </a>
+            </span>
           </div>
     
           <div class="p-6 sm:px-8">
@@ -131,12 +139,12 @@ export default {
               <span class="text-sm font-medium text-gray-700">/paket</span>
             </p>
     
-            <a
-              class="mt-4 block rounded border border-zimored bg-zimored px-12 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-zimored focus:outline-none focus:ring active:text-indigo-500 sm:mt-6"
-              href="#"
+            <span
+              class="mt-4 block cursor-pointer rounded border border-zimored bg-zimored px-12 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-zimored focus:outline-none focus:ring active:text-zimored sm:mt-6"
+              @click="pilihPaket(1)"
             >
               Beli paket
-            </a>
+            </span>
           </div>
     
           <div class="p-6 sm:px-8">
@@ -231,17 +239,17 @@ export default {
             <p class="mt-2 text-gray-700">Paket untuk kebutuhan sehari-hari.</p>
     
             <p class="mt-2 sm:mt-4">
-              <strong class="text-3xl font-bold text-gray-900 sm:text-4xl"> Rp10.000 </strong>
+              <strong class="text-3xl font-bold text-gray-900 sm:text-4xl"> Rp7.000 </strong>
     
               <span class="text-sm font-medium text-gray-700">/paket</span>
             </p>
     
-            <a
-              class="mt-4 block rounded border border-zimored bg-zimored px-12 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-zimored focus:outline-none focus:ring active:text-indigo-500 sm:mt-6"
-              href="#"
+            <span
+              class="mt-4 block cursor-pointer rounded border border-zimored bg-zimored px-12 py-3 text-center text-sm font-medium text-white hover:bg-transparent hover:text-zimored focus:outline-none focus:ring active:text-zimored sm:mt-6"
+              @click="pilihPaket(2)"
             >
               Beli paket
-            </a>
+            </span>
           </div>
     
           <div class="p-6 sm:px-8">

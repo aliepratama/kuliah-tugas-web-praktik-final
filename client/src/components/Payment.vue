@@ -1,10 +1,27 @@
 <script>
+import { mapActions, mapMutations, mapState, useStore } from 'vuex';
+
 export default {
     name: 'Payment Section',
     data(){
         return {
-          
+          ...mapState(['imgQris'])
         }
+    },
+    methods:{
+      ...mapMutations(['lanjutStepPayment', 'resetStatePayment']),
+      ...mapActions(['actionGetToken']),
+      lanjut(){
+        this.$store.commit('lanjutStepPayment', -1, true);
+        this.$store.commit('resetStatePayment');
+        this.$store.dispatch('actionGetToken');
+      }
+    },
+    async setup(){
+      const store = useStore();
+      const data = await store.dispatch('actionPayment', {
+        planId: store.state.activePlan + 1})
+      return {data: data}
     },
 }
 </script>
@@ -19,23 +36,23 @@ export default {
         
           <div class="flex flex-col items-center mt-4 space-y-6">
             <img
-                src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
+                :src="$store.state.imgQris"
                 alt=""
                 class="w-2/3 aspect-square rounded object-cover"
               />
         
             <div class="space-y-4 text-center">
           
-              <span>Kode berlaku sampai dengan 00:00</span>
+              <span>Kode berlaku sampai dengan 30 menit</span>
 
             </div>
 
-              <a
-                href="#"
-                class="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+              <span
+                @click="lanjut()"
+                class="block rounded bg-gray-700 px-5 py-3 text-sm cursor-pointer text-gray-100 transition hover:bg-gray-600"
               >
                 Sudah membayar
-              </a>
+              </span>
         
             </div>
         </div>

@@ -42,12 +42,18 @@ export default {
     }
   },
   methods:{
-    ...mapMutations(['changeRoute']),
+    ...mapMutations(['changeRoute', 'resetStateHistory']),
     lanjutStep(){
       this.activeStep = this.activeStep === 3 ? 1 : this.activeStep + 1;
+      if (this.activeStep === 1){
+        this.$store.commit('resetStateHistory')
+      }
     },
     backStep(){
       this.activeStep = this.activeStep !== 1 ? this.activeStep - 1 : 1;
+      if (this.activeStep === 1){
+        this.$store.commit('resetStateHistory')
+      }
     },
   },
   mounted(){
