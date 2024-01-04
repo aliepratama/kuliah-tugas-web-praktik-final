@@ -3,6 +3,7 @@ import { mapActions, mapMutations, mapState } from 'vuex';
 import Stepper from '../components/Stepper.vue';
 import ResultRater from '../components/ResultRater.vue';
 import Spinner from '../components/Spinner.vue';
+import Footer from '../components/Footer.vue';
 
 export default {
   name: "Design Rater View",
@@ -10,6 +11,7 @@ export default {
     'Stepper': Stepper,
     'ResultRater': ResultRater,
     'Spinner': Spinner,
+    'Footer': Footer,
   },
   methods : {
     ...mapActions(['actionImageUploader', 'actionRater']),
@@ -150,5 +152,6 @@ export default {
           </div>
         </div>
       </transition>
+      <Footer class="w-full mt-8"></Footer>
   </div>
 </template>

@@ -3,6 +3,7 @@ import { mapMutations, mapState } from 'vuex';
 import HistoryListCard from '../components/HistoryListCard.vue';
 import ResultBrief from '../components/ResultBrief.vue';
 import ResultRater from '../components/ResultRater.vue';
+import Footer from '../components/Footer.vue';
 
 export default {
     name: "History View",
@@ -10,6 +11,7 @@ export default {
         'ListCard': HistoryListCard,
         'ResultBrief': ResultBrief,
         'ResultRater': ResultRater,
+        'Footer': Footer,
     },
     data(){
         return {
@@ -38,6 +40,7 @@ export default {
                 <Suspense v-else-if="$store.state.detailHistory === 'rater'"><ResultRater class="mt-4"></ResultRater></Suspense>
                 <ListCard v-else></ListCard>
             </transition>
+            <Footer class="w-full mt-8"></Footer>
         </div>
     </div>
 </template>

@@ -3,6 +3,7 @@ import Pricing from '../components/Pricing.vue';
 import Checkout from '../components/Checkout.vue';
 import Payment from '../components/Payment.vue';
 import Spinner from '../components/Spinner.vue';
+import Footer from '../components/Footer.vue';
 import { mapMutations, mapState } from 'vuex';
 
 export default {
@@ -12,6 +13,7 @@ export default {
         'Checkout': Checkout,
         'Payment': Payment,
         'Spinner': Spinner,
+        'Footer': Footer,
     },
     data(){
         return {
@@ -42,6 +44,7 @@ export default {
                     </template>
                 </suspense>
             </transition>
+            <Footer class="w-full mt-8"></Footer>
         </div>
     </div>
 </template>

@@ -3,6 +3,7 @@ import { mapMutations } from 'vuex';
 import ResultBrief from '../components/ResultBrief.vue';
 import Stepper from '../components/Stepper.vue';
 import Spinner from '../components/Spinner.vue';
+import Footer from '../components/Footer.vue';
 
 export default {
   name: "Brief Generator View",
@@ -10,6 +11,7 @@ export default {
     'Stepper': Stepper,
     'ResultBrief': ResultBrief,
     'Spinner': Spinner,
+    'Footer': Footer,
   },
   data(){
     return {
@@ -141,6 +143,7 @@ export default {
             </div>
           </div>
         </transition>
+        <Footer class="w-full mt-8"></Footer>
     </div>
 </template>
 <style>
